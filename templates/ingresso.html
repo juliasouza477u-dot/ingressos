@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Seu ingresso · Luz do Limão{% endblock %}
+{% block content %}
+<section class="page center">
+  <h1>Pagamento confirmado</h1>
+  <p class="muted">{{ e.title }} · {{ e.date }} · {{ e.time }}<br>{{ e.place }}</p>
+  {% for t, qr in qrs %}
+  <div class="ticket"><img src="{{ qr }}" alt="QR do ingresso"><strong>{{ t.label }}</strong><span>{{ o.name }}</span></div>
+  {% endfor %}
+  {% if o.popcorn or o.coke %}<p class="muted">Retirar no dia: {% if o.popcorn %}{{ o.popcorn }}x pipoca{% endif %}{% if o.popcorn and o.coke %} · {% endif %}{% if o.coke %}{{ o.coke }}x Coca-Cola{% endif %}</p>{% endif %}
+  <a class="btn primary" href="{{ url_for('ingresso_pdf', order_id=o.id) }}">Baixar ingresso em PDF</a>
+</section>
+{% endblock %}

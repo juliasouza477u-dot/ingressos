@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page">
+  <h1>Elenco</h1>
+  <ul class="cast">
+  {% for a in actors %}<li><span>{{ a.name }}</span><em>{{ a.role }}</em></li>{% endfor %}
+  </ul>
+  <a class="btn" href="{{ url_for('index') }}">Voltar</a>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Pagamento · Luz do Limão{% endblock %}
+{% block content %}
+<section class="page center">
+  <h1>Pague com Pix</h1>
+  <p class="muted">Total <strong class="gold">R$ {{ o.total }}</strong> · reserva válida por {{ minutes }} minutos</p>
+  <img class="pixqr" src="{{ qr }}" alt="QR Code Pix">
+  <textarea id="code" readonly rows="4">{{ code }}</textarea>
+  <button class="btn primary" id="copy" type="button">Copiar código Pix</button>
+  <p class="muted" id="wait">Aguardando confirmação do pagamento…</p>
+</section>
+<script>
+document.getElementById('copy').onclick = e => {
+  navigator.clipboard.writeText(document.getElementById('code').value);
+  e.target.textContent = 'Código copiado';
+};
+setInterval(async () => {
+  const r = await fetch("{{ url_for('status', order_id=o.id) }}");
+  if ((await r.json()).status === 'paid') location.href = "{{ url_for('ingresso', order_id=o.id) }}";
+}, 5000);
+</script>
+{% endblock %}

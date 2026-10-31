@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Luz do Limão em Cristo" class="logo">
+  <h1>{{ e.title }}</h1>
+  <p class="muted">{{ e.date }} · {{ e.place }}</p>
+  <nav class="stack">
+    <a class="btn primary" href="{{ url_for('comprar') }}">Comprar ingressos</a>
+    <a class="btn" href="{{ url_for('sobre') }}">Sobre o teatro</a>
+    <a class="btn" href="{{ url_for('atores') }}">Conheça os atores</a>
+  </nav>
+</section>
+{% endblock %}

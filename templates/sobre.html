@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page">
+  <h1>Sobre o teatro</h1>
+  <p>Luz do Limão é o grupo de jovens da Paróquia Santo Antônio do Limão. Todo fim de ano, levamos ao palco a nossa peça natalina.</p>
+  <p>{{ e.title }} · {{ e.date }} · {{ e.time }}<br>{{ e.place }}</p>
+  <a class="btn primary" href="{{ url_for('comprar') }}">Comprar ingressos</a>
+</section>
+{% endblock %}

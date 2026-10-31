@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Comprar · Luz do Limão{% endblock %}
+{% block content %}
+<form method="post" id="app" class="page wide" data-front="{{ prices.front }}" data-general="{{ prices.general }}" data-popcorn="{{ prices.popcorn }}" data-coke="{{ prices.coke }}">
+  <h1>Escolha seus lugares</h1>
+  <div class="stage">Palco</div>
+  <div class="map">
+    {% for r in rows %}
+    <div class="row"><b>{{ r }}</b>
+      {% for i in range(1, n + 1) %}{% set s = r ~ i %}
+      <button type="button" class="seat" data-seat="{{ s }}" aria-label="Lugar {{ s }}" {% if s in taken %}disabled{% endif %}>{{ i }}</button>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  <p class="legend muted">Fileiras A–C: R$ {{ prices.front }} por lugar</p>
+  <input type="hidden" name="seats" id="seats">
+
+  <div class="line"><span>Entrada geral<small>R$ {{ prices.general }}</small></span>
+    <div class="qty"><button type="button" data-d="-1">−</button><input name="general" value="0" readonly><button type="button" data-d="1">+</button></div></div>
+  <div class="line"><span>Pipoca<small>R$ {{ prices.popcorn }}</small></span>
+    <div class="qty"><button type="button" data-d="-1">−</button><input name="popcorn" value="0" readonly><button type="button" data-d="1">+</button></div></div>
+  <div class="line"><span>Coca-Cola<small>R$ {{ prices.coke }}</small></span>
+    <div class="qty"><button type="button" data-d="-1">−</button><input name="coke" value="0" readonly><button type="button" data-d="1">+</button></div></div>
+
+  <label>Nome<input name="name" required autocomplete="name"></label>
+  <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+  <label>Telefone<input name="phone" type="tel" autocomplete="tel"></label>
+
+  <div class="total"><span>Total</span><strong id="total">R$ 0</strong></div>
+  <button class="btn primary" type="submit">Ir para o pagamento</button>
+</form>
+<script src="{{ url_for('static', filename='js/comprar.js') }}"></script>
+{% endblock %}

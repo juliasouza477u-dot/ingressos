@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page wide">
+  <h1>Pedidos</h1>
+  <table>
+    <tr><th>Nome</th><th>Total</th><th>Status</th><th></th></tr>
+    {% for o in orders %}
+    <tr><td>{{ o.name }}<br><small>{{ o.email }}</small></td><td>R$ {{ o.total }}</td><td>{{ o.status }}</td>
+      <td>{% if o.status == 'pending' %}<form method="post" action="{{ url_for('admin_pagar', order_id=o.id) }}">
+        <input type="hidden" name="token" value="{{ token }}"><button class="btn small">Confirmar</button></form>{% endif %}</td></tr>
+    {% endfor %}
+  </table>
+</section>
+{% endblock %}
